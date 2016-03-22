@@ -3,6 +3,8 @@
 --- !u!78 &1
 TagManager:
   tags:
+  - Heart
+  - Item
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -12,9 +14,9 @@ TagManager:
   Builtin Layer 5: UI
   Builtin Layer 6: 
   Builtin Layer 7: 
-  User Layer 8: 
-  User Layer 9: 
-  User Layer 10: 
+  User Layer 8: Background
+  User Layer 9: Hearts
+  User Layer 10: Items
   User Layer 11: 
   User Layer 12: 
   User Layer 13: 
@@ -40,4 +42,16 @@ TagManager:
   - name: Default
     userID: 0
     uniqueID: 0
+    locked: 0
+  - name: Background
+    userID: 1
+    uniqueID: 3043142553
+    locked: 0
+  - name: Hearts
+    userID: 2
+    uniqueID: 2154328515
+    locked: 0
+  - name: Items
+    userID: 3
+    uniqueID: 575867191
     locked: 0
