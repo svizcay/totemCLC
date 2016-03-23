@@ -4,6 +4,9 @@ using System.Collections;
 public class HeartController : MonoBehaviour {
 
 	public int nrOverlayedItems = 0;
+	public bool wasDiscovered = false;
+
+//	private bool isFirstTime = true;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +20,10 @@ public class HeartController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
+//		if (isFirstTime) {
+//			print ("executing heart controller onTriggerEnter method");
+//			isFirstTime = false;
+//		}
 		nrOverlayedItems++;
 		// print ("nr overlayed items: " + nrOverlayedItems);
 	}

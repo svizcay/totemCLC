@@ -9,8 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 466332}
   - 212: {fileID: 21266332}
-  - 61: {fileID: 6166332}
+  - 58: {fileID: 5824784}
   - 114: {fileID: 11491124}
+  - 95: {fileID: 9581684}
   m_Layer: 9
   m_Name: Heart
   m_TagString: Heart
@@ -30,8 +31,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6166332
-BoxCollider2D:
+--- !u!58 &5824784
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -39,8 +40,23 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: 1, y: 1}
+  m_Radius: .411118269
   m_Center: {x: 0, y: 0}
+--- !u!95 &9581684
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166332}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8331119a77b12b14db0c5f22f452f474, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11491124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nrOverlayedItems: 0
+  wasDiscovered: 0
 --- !u!212 &21266332
 SpriteRenderer:
   m_ObjectHideFlags: 1
