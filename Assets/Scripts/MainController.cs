@@ -41,8 +41,10 @@ public class MainController : MonoBehaviour {
 
 	// kinect related variables
 	public KinectWrapper.NuiSkeletonPositionIndex trackedJoint = KinectWrapper.NuiSkeletonPositionIndex.HandRight;
+	private KinectWrapper.NuiSkeletonPositionIndex leftHandJoint = KinectWrapper.NuiSkeletonPositionIndex.HandLeft;
 	public float smothFactor = 5.0f;
 	public GameObject rightHandObject;
+	public GameObject leftHandObject;
 	
 	private float distanceToCamera = 10.0f;
 
@@ -83,6 +85,26 @@ public class MainController : MonoBehaviour {
 		// kinect related initialization
 		distanceToCamera = (rightHandObject.transform.position - Camera.main.transform.position).magnitude;
 	}
+
+	void trackJoint(KinectManager kinectManager, uint userId, int iTrackedJoint, GameObject hand)
+	{
+		if (kinectManager.IsJointTracked(userId, iTrackedJoint)) {
+			Vector3 posJoint = kinectManager.GetRawSkeletonJointPos(userId, iTrackedJoint);
+			if (posJoint != Vector3.zero) {
+				// get 3d position to depth
+				Vector2 posDepth = kinectManager.GetDepthMapPosForJointPos(posJoint);
+
+				// depth pos to color pos
+				Vector2 posColor = kinectManager.GetColorMapPosForDepthPos(posDepth);
+				
+				float scaleX = (float)posColor.x / KinectWrapper.Constants.ColorImageWidth;
+				float scaleY = 1.0f - (float)posColor.y / KinectWrapper.Constants.ColorImageHeight;
+				
+				Vector3 newPosition = Camera.main.ViewportToWorldPoint(new Vector3(scaleX, scaleY, distanceToCamera));
+				hand.transform.position = Vector3.Lerp(hand.transform.position, newPosition, smothFactor * Time.deltaTime);
+			}
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -109,34 +131,37 @@ public class MainController : MonoBehaviour {
 				if (kinectManager && kinectManager.IsInitialized()) {
 //					print("kinnect manager is initialized");
 					int iTrackedJoint = (int)trackedJoint;
+					int iLeftHandJoint = (int)leftHandJoint;
 					if (kinectManager.IsUserDetected()) {
 //						print ("user was detected");
 						uint userId = kinectManager.GetPlayer1ID();
-						if (kinectManager.IsJointTracked(userId, iTrackedJoint)) {
-//							print ("right hand is being tracked");
-							Vector3 posJoint = kinectManager.GetRawSkeletonJointPos(userId, iTrackedJoint);
-							print ("posJoint: " + posJoint);
-							if (posJoint != Vector3.zero) {
-//								print ("there was a movement");
-								// get 3d position to depth
-								Vector2 posDepth = kinectManager.GetDepthMapPosForJointPos(posJoint);
-
-								print("before depth pos to color pos " + posDepth);
-								print("user depth map: " + kinectManager.GetRawDepthMap());
-								// depth pos to color pos
-								Vector2 posColor = kinectManager.GetColorMapPosForDepthPos(posDepth);
-								print("before kinect wrapper constants");
-
-								float scaleX = (float)posColor.x / KinectWrapper.Constants.ColorImageWidth;
-								float scaleY = (float)posColor.y / KinectWrapper.Constants.ColorImageHeight;
-
-								Vector3 newPosition = Camera.main.ViewportToWorldPoint(new Vector3(scaleX, scaleY, distanceToCamera));
-								print ("new position: " + newPosition);
-								rightHandObject.transform.position = Vector3.Lerp(rightHandObject.transform.position, newPosition, smothFactor * Time.deltaTime);
-
-							}
-
-						}
+						trackJoint(kinectManager, userId, iTrackedJoint, rightHandObject);
+						trackJoint(kinectManager, userId, iLeftHandJoint, leftHandObject);
+//						if (kinectManager.IsJointTracked(userId, iTrackedJoint)) {
+////							print ("right hand is being tracked");
+//							Vector3 posJoint = kinectManager.GetRawSkeletonJointPos(userId, iTrackedJoint);
+//							print ("posJoint: " + posJoint);
+//							if (posJoint != Vector3.zero) {
+////								print ("there was a movement");
+//								// get 3d position to depth
+//								Vector2 posDepth = kinectManager.GetDepthMapPosForJointPos(posJoint);
+//
+//								print("before depth pos to color pos " + posDepth);
+//								print("user depth map: " + kinectManager.GetRawDepthMap());
+//								// depth pos to color pos
+//								Vector2 posColor = kinectManager.GetColorMapPosForDepthPos(posDepth);
+//								print("before kinect wrapper constants");
+//
+//								float scaleX = (float)posColor.x / KinectWrapper.Constants.ColorImageWidth;
+//								float scaleY = 1.0f - (float)posColor.y / KinectWrapper.Constants.ColorImageHeight;
+//
+//								Vector3 newPosition = Camera.main.ViewportToWorldPoint(new Vector3(scaleX, scaleY, distanceToCamera));
+//								print ("new position: " + newPosition);
+//								rightHandObject.transform.position = Vector3.Lerp(rightHandObject.transform.position, newPosition, smothFactor * Time.deltaTime);
+//
+//							}
+//
+//						}
 					}
 
 				}
