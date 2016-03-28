@@ -22,7 +22,7 @@ public class BBInputDelegate : MonoBehaviour {
 		tuioInput.collectEvents = true;
 		cameraPixelWidth = Camera.main.pixelWidth;
 		cameraPixelHeight = Camera.main.pixelHeight;
-		//DontDestroyOnLoad(this);
+		DontDestroyOnLoad(transform.gameObject);
 		setup();
 	}
 

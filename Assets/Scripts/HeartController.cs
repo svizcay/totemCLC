@@ -24,12 +24,16 @@ public class HeartController : MonoBehaviour {
 //			print ("executing heart controller onTriggerEnter method");
 //			isFirstTime = false;
 //		}
-		nrOverlayedItems++;
+		if (other.tag == "Item") {
+			nrOverlayedItems++;
+		}
 		// print ("nr overlayed items: " + nrOverlayedItems);
 	}
 
 	void OnTriggerExit2D(Collider2D other)
 	{
-		nrOverlayedItems--;
+		if (other.tag == "Item") {
+			nrOverlayedItems--;
+		}
 	}
 }

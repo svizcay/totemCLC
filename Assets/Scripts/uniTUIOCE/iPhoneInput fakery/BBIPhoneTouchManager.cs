@@ -16,13 +16,20 @@ public class BBIPhoneTouchManager : BBInputDelegate {
 // returns it to the caller.
 	public static BBIPhoneTouchManager instance {
 		get {
+//			print ("asking for touch manager instance");
 			if (sharedEventManager == null) {
+//				print ("current one was set to null...looking for gameobjects with that script");
 				// This is where the magic happens.
 				//  FindObjectOfType(...) returns the first AManager object in the scene.
 				sharedEventManager =  FindObjectOfType(typeof (BBIPhoneTouchManager)) as BBIPhoneTouchManager;
-				if (sharedEventManager == null)
+				if (sharedEventManager == null) {
 					Debug.Log ("Could not locate a TouchEventManager object. You have to have exactly one TouchEventManager in the scene.");
+				} else {
+//					print ("we found one");
 				}
+			} else {
+//				print ("there was one previously set");
+			}
 			return sharedEventManager;
 		}
 	}
@@ -39,7 +46,7 @@ public class BBIPhoneTouchManager : BBInputDelegate {
 		}
 		base.finishFrame();
 	}
-	
+
 	public iPhoneTouch touchWithEvent(BBTouchEvent anEvent)
 	{
 		iPhoneTouch newTouch = new iPhoneTouch();
