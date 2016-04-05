@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 // using UnityEngine.SceneManagement; // in Unity > 5
+using System.Diagnostics;
 
 public class MainController : MonoBehaviour {
 
@@ -73,8 +74,9 @@ public class MainController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		ResetTimer ();
-
+		
 		// disable playAgainBtn
 		playAgainBtn.SetActive (false);
 
@@ -185,6 +187,16 @@ public class MainController : MonoBehaviour {
 
 //				print ("is playing: " + isPlaying);
 				if (!isPlaying) {
+					// take picture with gopro
+					ProcessStartInfo processInfo = new ProcessStartInfo ("sh", System.IO.Path.Combine(Application.streamingAssetsPath, "run.sh"))
+					{
+						CreateNoWindow = true,
+						WindowStyle = ProcessWindowStyle.Hidden,
+						UseShellExecute = false,
+						RedirectStandardOutput = true
+					};
+					Process process = Process.Start (processInfo);
+
 					// do not allow collision between hands and items anymore
 					Physics2D.IgnoreLayerCollision(playerLayer, itemsLayer);
 					playAgainBtn.SetActive(true);

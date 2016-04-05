@@ -1483,7 +1483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819b9119a66ef24429e6f9b13099c03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingKinect: 1
+  usingKinect: 0
   gameDuration: 60
   timeAlert: 15
   nrItems: 100
