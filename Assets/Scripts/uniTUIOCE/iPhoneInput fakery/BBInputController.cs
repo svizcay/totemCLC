@@ -34,7 +34,18 @@ public class BBInputController : TuioListener {
 	{
 		client = new TuioClient(3333);
 		client.addTuioListener(this);
+		Debug.Log ("before calling client.connect (TuioClient client)");
 		client.connect();
+	}
+
+	public void Connect()
+	{
+		if (client == null) {
+			Debug.Log ("client null");
+		} else {
+			Debug.Log("client not null");
+			client.connect();
+		}
 	}
 
 

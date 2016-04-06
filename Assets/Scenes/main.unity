@@ -641,7 +641,6 @@ GameObject:
   - 92: {fileID: 841388057}
   - 124: {fileID: 841388056}
   - 81: {fileID: 841388055}
-  - 114: {fileID: 841388061}
   - 114: {fileID: 841388062}
   m_Layer: 0
   m_Name: Main Camera
@@ -715,18 +714,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &841388061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 841388054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bee1c5e77e2b4a64813b323daab741e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventManagerPrefab: {fileID: 11413690, guid: f1bd0a60b0dffe245ad72d62f3e60546, type: 2}
 --- !u!114 &841388062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,7 +1471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usingKinect: 0
-  gameDuration: 60
+  gameDuration: 15
   timeAlert: 15
   nrItems: 100
   maxPositiveHorizontalSize: 9

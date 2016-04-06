@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine;
 
 public class BBOSCReceiver {} // bogus declaration to meet with unity's strict name = filename scheme
 
@@ -29,7 +30,12 @@ namespace OSC.NET
 
 		public void Close()
 		{
-			if (this.udpClient!=null) this.udpClient.Close();
+			if (this.udpClient != null) {
+				Debug.Log ("upd client not null...calling close");
+				this.udpClient.Close ();
+			} else {
+				Debug.Log("udp client null (when calling close");
+			}
 			this.udpClient = null;
 		}
 

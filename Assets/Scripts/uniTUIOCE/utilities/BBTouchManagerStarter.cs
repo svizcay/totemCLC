@@ -23,6 +23,11 @@ public class BBTouchManagerStarter : MonoBehaviour {
 			Debug.Log("no touch manager, making one");
 			Instantiate(eventManagerPrefab,Vector3.zero,Quaternion.identity);
 		}
+		print ("awake camera");
+	}
+
+	void Start() {
+//		print ("start camera");
 	}
 
 }

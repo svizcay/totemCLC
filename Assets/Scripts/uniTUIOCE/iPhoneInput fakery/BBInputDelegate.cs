@@ -29,6 +29,13 @@ public class BBInputDelegate : MonoBehaviour {
 	void Update()
 	{
 		processEvents();
+		if (Input.GetKeyDown (KeyCode.A)) {
+			print ("connected?: " + tuioInput.isConnected());
+			if (!tuioInput.isConnected()) {
+				tuioInput.Connect();
+			}
+
+		}
 	}
 
 	public virtual void setup()
@@ -47,6 +54,8 @@ public class BBInputDelegate : MonoBehaviour {
 		if (tuioInput != null) {
 			tuioInput.collectEvents = false;
 			tuioInput.disconnect();
+			print ("disconnection from tuio");
+
 		}
 	}
 
@@ -63,6 +72,7 @@ public class BBInputDelegate : MonoBehaviour {
 	// Cursor down is for new touch events. we take the TUIO cursor object and convert it
 	// into a touch event, and add it to our active list of events
 	public virtual void cursorDown(TuioCursor cursor) {
+		print ("tuio cursor down!");
 		// first, make a new BBTouchEvent, tag it with the unique touch id
 		BBTouchEvent newEvent = new BBTouchEvent(cursor.getSessionID()); 
 		// set the initial information		
@@ -111,6 +121,7 @@ public class BBInputDelegate : MonoBehaviour {
 		// go through the events and dispatch
 		foreach (BBCursorEvent cursorEvent in events) {
 			if (cursorEvent.state == BBCursorState.Add) {
+				print ("cursordown event");
 				cursorDown(cursorEvent.cursor);
 				continue;
 			}
