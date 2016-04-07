@@ -196,6 +196,7 @@ public class MainController : MonoBehaviour {
 						RedirectStandardOutput = true
 					};
 					Process process = Process.Start (processInfo);
+					UnityEngine.Debug.Log ("retorno de la toma de foto");
 
 					// do not allow collision between hands and items anymore
 					Physics2D.IgnoreLayerCollision(playerLayer, itemsLayer);
@@ -203,7 +204,7 @@ public class MainController : MonoBehaviour {
 				}
 			} else {
 				// user is not allowed to move items anymore but can still click on playAgainBtn
-				print ("waiting for user to press play again button");
+//				print ("waiting for user to press play again button");
 			}
 
 			// update player's hands

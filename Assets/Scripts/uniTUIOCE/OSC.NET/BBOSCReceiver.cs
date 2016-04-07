@@ -31,6 +31,7 @@ namespace OSC.NET
 		public void Close()
 		{
 			if (this.udpClient != null) {
+				Debug.Log("ESTA SE TIENE QUE EJECUTAR SI O SI LA PRIMERA VEZ!!!");
 				Debug.Log ("upd client not null...calling close");
 				this.udpClient.Close ();
 			} else {
