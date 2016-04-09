@@ -22,6 +22,35 @@ public class ItemController : MonoBehaviour {
 //		rigidbody.AddForce (velocity);
 	}
 
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if (other.tag == "Player") {
+			Vector3 delta = transform.position - other.transform.position;
+			delta.z = 0f;
+			if (delta.magnitude > 0.0f) {
+				if(other.gameObject.GetComponent<PieSlide>().sleeping) {
+					//					print ("tuio hand is sleeping");
+					return;
+				}
+				Vector3.Normalize (delta);
+				
+				//rigidbody2D.velocity = delta * force;
+				Vector2 vel = other.gameObject.GetComponent<PieSlide>().velocity * force;
+				
+				if(vel.magnitude > 100)
+				{
+					//	print("maxi!!!");
+					vel.Normalize();
+					vel *= 100;
+				}
+
+				print ("on trigger stay!! vel: " + vel + " en " + GetComponent<SpriteRenderer>().sprite.name);
+				
+				GetComponent<Rigidbody2D>().velocity = vel;
+			}
+		}
+	}
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
 //		print ("trigger item");

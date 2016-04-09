@@ -108,7 +108,7 @@ namespace TUIO
 		 */
 		public void connect() {
 
-			Debug.Log ("tuio client before init session");
+//			Debug.Log ("tuio client before init session");
 			TuioTime.initSession();
 			currentTime = new TuioTime();
 			currentTime.reset();
@@ -118,14 +118,14 @@ namespace TUIO
 				connected = true;
 				statusString = "Thread Started";
 				thread = new Thread(new ThreadStart(listen));
-				Debug.Log("tuio client before thread start");
+//				Debug.Log("tuio client before thread start");
 				thread.Start();
 			} catch (Exception e) {
 				Console.WriteLine("failed to connect to port "+port);
 				Console.WriteLine(e.Message);
 				statusString = "failed to connect to port " + port + " " + e.Message;
-				Debug.Log("ERROR: there was an error trying to connect tuio client");
-				Debug.Log(e.Message);
+//				Debug.Log("ERROR: there was an error trying to connect tuio client");
+//				Debug.Log(e.Message);
 			}
 		}
 
@@ -145,7 +145,7 @@ namespace TUIO
 				frameCursors.Clear();
 			
 				connected = false;
-			Debug.Log("tuio client disconnected");
+//			Debug.Log("tuio client disconnected");
 		}
 
 		/**

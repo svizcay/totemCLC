@@ -1471,9 +1471,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usingKinect: 0
-  gameDuration: 15
+  takePicture: 0
+  gameDuration: 60
   timeAlert: 15
-  nrItems: 100
+  nrItems: 1000
   maxPositiveHorizontalSize: 9
   maxPositiveVerticalSize: 4
   nrHearts: 3

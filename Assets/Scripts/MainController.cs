@@ -8,6 +8,7 @@ public class MainController : MonoBehaviour {
 	// public static MainController mainController;
 
 	public bool usingKinect = false;
+	public bool takePicture = true;
 	public int gameDuration = 60;
 	public int timeAlert = 15;
 
@@ -195,7 +196,9 @@ public class MainController : MonoBehaviour {
 						UseShellExecute = false,
 						RedirectStandardOutput = true
 					};
-					Process process = Process.Start (processInfo);
+					if (takePicture) {
+						Process process = Process.Start (processInfo);
+					}
 					UnityEngine.Debug.Log ("retorno de la toma de foto");
 
 					// do not allow collision between hands and items anymore

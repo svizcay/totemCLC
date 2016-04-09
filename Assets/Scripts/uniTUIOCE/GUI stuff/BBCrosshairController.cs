@@ -44,8 +44,11 @@ public class BBCrosshairController : MonoBehaviour {
 			thisCrosshair.GetComponent<CircleCollider2D>().enabled = true;
 			thisCrosshair.SetActive(true);
 			//thisCrosshair.transform.position = renderingCamera.ScreenToViewportPoint(screenPosition * 4f);
-			thisCrosshair.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
-			thisCrosshair.transform.position = new Vector3(thisCrosshair.transform.position .x, thisCrosshair.transform.position .y, -1f);
+			Vector2 newPosition = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
+//			thisCrosshair.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
+//			thisCrosshair.transform.position = new Vector3(thisCrosshair.transform.position .x, thisCrosshair.transform.position .y, -1f);
+//			thisCrosshair.GetComponent<Rigidbody2D>().position = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
+			thisCrosshair.GetComponent<Rigidbody2D>().MovePosition(newPosition);
 			crosshairIndex++;
 		}
 		
