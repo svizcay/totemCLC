@@ -6,6 +6,8 @@ public class HeartController : MonoBehaviour {
 	public int nrOverlayedItems = 0;
 	public bool wasDiscovered = false;
 
+	public bool shouldBeConsideredDiscovered = false;
+
 //	private bool isFirstTime = true;
 
 	// Use this for initialization
@@ -28,6 +30,13 @@ public class HeartController : MonoBehaviour {
 			nrOverlayedItems++;
 		}
 		// print ("nr overlayed items: " + nrOverlayedItems);
+	}
+
+	void OnTriggerStay2D(Collider2D other)
+	{
+		if (other.tag == "Item") {
+			shouldBeConsideredDiscovered = false;
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D other)

@@ -11,7 +11,6 @@ GameObject:
   - 212: {fileID: 21293878}
   - 50: {fileID: 5093878}
   - 58: {fileID: 5893878}
-  - 114: {fileID: 11493876}
   m_Layer: 12
   m_Name: TUIOHand
   m_TagString: Player
@@ -37,15 +36,15 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193878}
-  m_Mass: 1
+  m_Mass: 9.99999975e-05
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 0
-  m_IsKinematic: 0
+  m_FixedAngle: 1
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!58 &5893878
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -54,23 +53,9 @@ CircleCollider2D:
   m_GameObject: {fileID: 193878}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Radius: .554922163
   m_Center: {x: 0, y: 0}
---- !u!114 &11493876
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 193878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9973e6c56a0f6af43a5682c84d69bee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0}
-  speed: 0
-  directionDetectRate: .00999999978
 --- !u!212 &21293878
 SpriteRenderer:
   m_ObjectHideFlags: 1

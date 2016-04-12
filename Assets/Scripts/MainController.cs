@@ -57,6 +57,8 @@ public class MainController : MonoBehaviour {
 	
 	private float distanceToCamera = 10.0f;
 
+	private ProcessStartInfo processInfo;
+
 	void ResetTimer()
 	{
 		timertext.text = gameDuration.ToString ();
@@ -116,6 +118,14 @@ public class MainController : MonoBehaviour {
 		itemsLayer = LayerMask.NameToLayer ("Items");
 
 		Physics2D.IgnoreLayerCollision(playerLayer, itemsLayer, false);
+
+//		processInfo = new ProcessStartInfo ("sh", System.IO.Path.Combine(Application.streamingAssetsPath, "run.sh"))
+//		{
+//			CreateNoWindow = true,
+//			WindowStyle = ProcessWindowStyle.Hidden,
+//			UseShellExecute = false,
+//			RedirectStandardOutput = true
+//		};
 	}
 
 	void trackJoint(KinectManager kinectManager, uint userId, int iTrackedJoint, GameObject hand)
@@ -170,6 +180,14 @@ public class MainController : MonoBehaviour {
 		} else {
 			// user is interacting with kinect or tuio
 			if (isPlaying) {
+				if (Input.GetKeyDown(KeyCode.A)){
+					UnityEngine.Debug.Log("nr items above each heart:");
+					for (int i = 0; i < nrHearts; i++) {
+						HeartController heartController = hearts [i].GetComponent<HeartController> (); 
+						UnityEngine.Debug.Log(heartController.nrOverlayedItems);
+					}
+
+				}
 				// check game over
 				if (timeLeft <= 0) {
 					gameOver = true;
@@ -189,15 +207,8 @@ public class MainController : MonoBehaviour {
 //				print ("is playing: " + isPlaying);
 				if (!isPlaying) {
 					// take picture with gopro
-					ProcessStartInfo processInfo = new ProcessStartInfo ("sh", System.IO.Path.Combine(Application.streamingAssetsPath, "run.sh"))
-					{
-						CreateNoWindow = true,
-						WindowStyle = ProcessWindowStyle.Hidden,
-						UseShellExecute = false,
-						RedirectStandardOutput = true
-					};
 					if (takePicture) {
-						Process process = Process.Start (processInfo);
+//						Process process = Process.Start (processInfo);
 					}
 					UnityEngine.Debug.Log ("retorno de la toma de foto");
 
@@ -226,13 +237,18 @@ public class MainController : MonoBehaviour {
 		}
 	}
 
+	void LateUpdate()
+	{
+		MarkHeartsForCheck();
+	}
+
 	void CountNrVisibleHearts()
 	{
 		for (int i = 0; i < nrHearts; i++) {
 			CircleCollider2D heartCollider = hearts [i].GetComponent<CircleCollider2D> ();
 			if (heartCollider) {
 				HeartController heartController = hearts [i].GetComponent<HeartController> (); 
-				if (!heartController.wasDiscovered && heartController.nrOverlayedItems == 0) {
+				if (!heartController.wasDiscovered && heartController.nrOverlayedItems == 0 || heartController.shouldBeConsideredDiscovered) {
 					// heart is visible
 					nrVisibleHearts++;
 					heartCollider.isTrigger = false;
@@ -240,6 +256,14 @@ public class MainController : MonoBehaviour {
 					hearts[i].GetComponent<Animator>().SetTrigger("wasDiscovered");
 				}
 			}
+		}
+	}
+
+	void MarkHeartsForCheck()
+	{
+		for (int i = 0; i < nrHearts; i++) {
+			HeartController heartController = hearts [i].GetComponent<HeartController> (); 
+			heartController.shouldBeConsideredDiscovered = true;
 		}
 	}
 

@@ -12,6 +12,7 @@ GameObject:
   - 58: {fileID: 5824784}
   - 114: {fileID: 11491124}
   - 95: {fileID: 9581684}
+  - 50: {fileID: 5088894}
   m_Layer: 9
   m_Name: Heart
   m_TagString: Heart
@@ -31,6 +32,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5088894
+Rigidbody2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166332}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_FixedAngle: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
 --- !u!58 &5824784
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -70,6 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nrOverlayedItems: 0
   wasDiscovered: 0
+  shouldBeConsideredDiscovered: 0
 --- !u!212 &21266332
 SpriteRenderer:
   m_ObjectHideFlags: 1
