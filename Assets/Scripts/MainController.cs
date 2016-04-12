@@ -2,6 +2,7 @@
 using System.Collections;
 // using UnityEngine.SceneManagement; // in Unity > 5
 using System.Diagnostics;
+using UnityEngine.UI;
 
 public class MainController : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class MainController : MonoBehaviour {
 	public int nrHearts = 3;
 
 	public Animator clockAnimator;
-	public TextMesh timertext;
+	public Text timertext;
 
 	public GameObject playAgainBtn;
 
@@ -147,9 +148,16 @@ public class MainController : MonoBehaviour {
 			}
 		}
 	}
+
+	void Update() {
+//		if (Input.anyKeyDown) {
+//			
+//		}
+	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
+
 		if (standby) {
 			// waiting for input (allow user input)
 			ResetTimer();
@@ -186,6 +194,7 @@ public class MainController : MonoBehaviour {
 						HeartController heartController = hearts [i].GetComponent<HeartController> (); 
 						UnityEngine.Debug.Log(heartController.nrOverlayedItems);
 					}
+					print ("nr corazones descubiertos" + nrVisibleHearts);
 
 				}
 				// check game over
@@ -193,7 +202,10 @@ public class MainController : MonoBehaviour {
 					gameOver = true;
 				} else {
 					// check if player won
+//					print("mainController: antes de contar corazones");
 					CountNrVisibleHearts();
+					MarkHeartsForCheck();
+//					print("mainController: despues de setear corazones a true");
 					if (nrVisibleHearts == nrHearts) {
 						won = true;
 					}
@@ -239,7 +251,7 @@ public class MainController : MonoBehaviour {
 
 	void LateUpdate()
 	{
-		MarkHeartsForCheck();
+//		MarkHeartsForCheck();
 	}
 
 	void CountNrVisibleHearts()
@@ -248,12 +260,14 @@ public class MainController : MonoBehaviour {
 			CircleCollider2D heartCollider = hearts [i].GetComponent<CircleCollider2D> ();
 			if (heartCollider) {
 				HeartController heartController = hearts [i].GetComponent<HeartController> (); 
-				if (!heartController.wasDiscovered && heartController.nrOverlayedItems == 0 || heartController.shouldBeConsideredDiscovered) {
+				if (!heartController.wasDiscovered && heartController.nrOverlayedItems == 0 || !heartController.wasDiscovered && heartController.shouldBeConsideredDiscovered) {
 					// heart is visible
 					nrVisibleHearts++;
 					heartCollider.isTrigger = false;
 					heartController.wasDiscovered = true;
 					hearts[i].GetComponent<Animator>().SetTrigger("wasDiscovered");
+					heartController.shouldBeConsideredDiscovered = false;
+					print ("se descubrio el corazon " + i);
 				}
 			}
 		}

@@ -28,6 +28,8 @@ public class HeartController : MonoBehaviour {
 //		}
 		if (other.tag == "Item") {
 			nrOverlayedItems++;
+			shouldBeConsideredDiscovered = false;
+//			print ("heartController: entro un item");
 		}
 		// print ("nr overlayed items: " + nrOverlayedItems);
 	}
@@ -36,6 +38,7 @@ public class HeartController : MonoBehaviour {
 	{
 		if (other.tag == "Item") {
 			shouldBeConsideredDiscovered = false;
+//			print ("heartController: todavia sigue un item");
 		}
 	}
 
@@ -43,6 +46,7 @@ public class HeartController : MonoBehaviour {
 	{
 		if (other.tag == "Item") {
 			nrOverlayedItems--;
+//			print ("heartController: salio un item");
 		}
 	}
 }
