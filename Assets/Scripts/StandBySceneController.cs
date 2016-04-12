@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InitSceneController : MonoBehaviour {
+public class StandBySceneController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Application.LoadLevel ("main");
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.anyKeyDown) {
+			Application.LoadLevel ("main");
+		}
 	}
 }

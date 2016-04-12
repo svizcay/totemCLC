@@ -23,6 +23,9 @@ public class MainController : MonoBehaviour {
 
 	public GameObject playAgainBtn;
 
+	public GameObject winMessage;
+	public GameObject loseMessage;
+
 	public GameObject heartPrefab;
 	public GameObject emptyItemPrefab;
 
@@ -78,6 +81,9 @@ public class MainController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		winMessage.SetActive (false);
+		loseMessage.SetActive (false);
 		
 		ResetTimer ();
 		
@@ -226,7 +232,15 @@ public class MainController : MonoBehaviour {
 
 					// do not allow collision between hands and items anymore
 					Physics2D.IgnoreLayerCollision(playerLayer, itemsLayer);
-					playAgainBtn.SetActive(true);
+//					playAgainBtn.SetActive(true);
+					if (won) {
+						winMessage.SetActive(true);
+						print ("gano");
+					} else {
+						loseMessage.SetActive(true);
+						print ("perdio");
+					}
+					StartCoroutine(RestartGameCoroutine());
 				}
 			} else {
 				// user is not allowed to move items anymore but can still click on playAgainBtn
@@ -284,6 +298,13 @@ public class MainController : MonoBehaviour {
 	public static void RestartGame()
 	{
 		// SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // in Unity > 5
-		Application.LoadLevel (Application.loadedLevel);
+//		Application.LoadLevel (Application.loadedLevel);
+//		Application.LoadLevel ("standby");
+	}
+
+	IEnumerator RestartGameCoroutine()
+	{
+		yield return new WaitForSeconds(5);
+		Application.LoadLevel ("standby");
 	}
 }
