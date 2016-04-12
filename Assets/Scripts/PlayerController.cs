@@ -4,9 +4,9 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
-	Rigidbody2D rigidbody;
+	new Rigidbody2D rigidbody;
 	void Start () {
-		rigidbody = GetComponent<Rigidbody2D> ();
+//		rigidbody = GetComponent<Rigidbody2D> ();
 		// rigidbody.AddForce (new Vector2(-100, 50));
 	}
 	
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		Vector2 velocity = collision.relativeVelocity;
+//		Vector2 velocity = collision.relativeVelocity;
 //		print ("PlayerController velocity: " + velocity);
 		// rigidbody.AddForce (velocity);
 	}

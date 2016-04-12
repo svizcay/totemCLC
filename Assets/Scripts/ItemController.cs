@@ -5,7 +5,7 @@ public class ItemController : MonoBehaviour {
 
 	public float force = 80.0f;
 	// Use this for initialization
-	Rigidbody2D rigidbody;
+	new Rigidbody2D rigidbody;
 	void Start () {
 		rigidbody = GetComponent<Rigidbody2D> ();
 	}
@@ -20,10 +20,12 @@ public class ItemController : MonoBehaviour {
 //		Vector2 velocity = collision.gameObject.GetComponent<Rigidbody2D>().velocity;
 //		print ("ItemController velocity: " + velocity);
 //		rigidbody.AddForce (velocity);
+//		print ("collision en un item contra " + collision.gameObject.tag);
 	}
 
 	void OnTriggerStay2D(Collider2D other)
 	{
+//		print ("trigger en un item contra " + other.tag);
 		if (other.tag == "Player") {
 			Vector3 delta = transform.position - other.transform.position;
 			delta.z = 0f;
@@ -46,7 +48,7 @@ public class ItemController : MonoBehaviour {
 
 				print ("on trigger stay!! vel: " + vel + " en " + GetComponent<SpriteRenderer>().sprite.name);
 				
-				GetComponent<Rigidbody2D>().velocity = vel;
+				rigidbody.velocity = vel;
 			}
 		}
 	}
@@ -87,7 +89,7 @@ public class ItemController : MonoBehaviour {
 					vel *= 100;
 				}
 
-				GetComponent<Rigidbody2D>().velocity = vel;
+				rigidbody.velocity = vel;
 				
 //				//para manejar el rebote
 //				if (activarRebote)

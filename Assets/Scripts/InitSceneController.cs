@@ -5,7 +5,7 @@ public class InitSceneController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Application.LoadLevel ("main");
+		Application.LoadLevel ("standby");
 	}
 	
 	// Update is called once per frame

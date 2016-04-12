@@ -25,7 +25,7 @@ public class BBCrosshairController : MonoBehaviour {
 	// we go through each touch input and place a crosshair at it's position.
 	// we save a list of crosshairs and deactivate them when they are not
 	// being used.
-	void Update () {
+	void FixedUpdate () {
 	 	int crosshairIndex = 0;
 		int i;
 //		print ("nr touch events: " + iPhoneInput.touchCount);

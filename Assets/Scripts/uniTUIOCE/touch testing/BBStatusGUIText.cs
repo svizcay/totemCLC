@@ -25,7 +25,8 @@ public class BBStatusGUIText : MonoBehaviour {
 	    if( !gameObject.GetComponent<GUIText>() )
 	    {
 	        print ("FramesPerSecond needs a GUIText component!");
-	        gameObject.active = false;
+//	        gameObject.active = false;
+			gameObject.SetActive(false);
 	        return;
 	    }
 	    timeleft = updateInterval;  

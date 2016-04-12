@@ -1093,7 +1093,7 @@ public class KinectManager : MonoBehaviour
 			CalibrationText.guiText.text = "WAITING FOR USERS";
 		}
 		
-		Debug.Log("Waiting for users.");
+//		Debug.Log("Waiting for users.");
 			
 		KinectInitialized = true;
 	}

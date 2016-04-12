@@ -2,6 +2,7 @@
 using System.Collections;
 // using UnityEngine.SceneManagement; // in Unity > 5
 using System.Diagnostics;
+using UnityEngine.UI;
 
 public class MainController : MonoBehaviour {
 
@@ -18,9 +19,12 @@ public class MainController : MonoBehaviour {
 	public int nrHearts = 3;
 
 	public Animator clockAnimator;
-	public TextMesh timertext;
+	public Text timertext;
 
 	public GameObject playAgainBtn;
+
+	public GameObject winMessage;
+	public GameObject loseMessage;
 
 	public GameObject heartPrefab;
 	public GameObject emptyItemPrefab;
@@ -57,6 +61,8 @@ public class MainController : MonoBehaviour {
 	
 	private float distanceToCamera = 10.0f;
 
+	private ProcessStartInfo processInfo;
+
 	void ResetTimer()
 	{
 		timertext.text = gameDuration.ToString ();
@@ -75,6 +81,9 @@ public class MainController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		winMessage.SetActive (false);
+		loseMessage.SetActive (false);
 		
 		ResetTimer ();
 		
@@ -116,6 +125,14 @@ public class MainController : MonoBehaviour {
 		itemsLayer = LayerMask.NameToLayer ("Items");
 
 		Physics2D.IgnoreLayerCollision(playerLayer, itemsLayer, false);
+
+//		processInfo = new ProcessStartInfo ("sh", System.IO.Path.Combine(Application.streamingAssetsPath, "run.sh"))
+//		{
+//			CreateNoWindow = true,
+//			WindowStyle = ProcessWindowStyle.Hidden,
+//			UseShellExecute = false,
+//			RedirectStandardOutput = true
+//		};
 	}
 
 	void trackJoint(KinectManager kinectManager, uint userId, int iTrackedJoint, GameObject hand)
@@ -137,9 +154,16 @@ public class MainController : MonoBehaviour {
 			}
 		}
 	}
+
+	void Update() {
+//		if (Input.anyKeyDown) {
+//			
+//		}
+	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
+
 		if (standby) {
 			// waiting for input (allow user input)
 			ResetTimer();
@@ -170,12 +194,24 @@ public class MainController : MonoBehaviour {
 		} else {
 			// user is interacting with kinect or tuio
 			if (isPlaying) {
+				if (Input.GetKeyDown(KeyCode.A)){
+					UnityEngine.Debug.Log("nr items above each heart:");
+					for (int i = 0; i < nrHearts; i++) {
+						HeartController heartController = hearts [i].GetComponent<HeartController> (); 
+						UnityEngine.Debug.Log(heartController.nrOverlayedItems);
+					}
+					print ("nr corazones descubiertos" + nrVisibleHearts);
+
+				}
 				// check game over
 				if (timeLeft <= 0) {
 					gameOver = true;
 				} else {
 					// check if player won
+//					print("mainController: antes de contar corazones");
 					CountNrVisibleHearts();
+					MarkHeartsForCheck();
+//					print("mainController: despues de setear corazones a true");
 					if (nrVisibleHearts == nrHearts) {
 						won = true;
 					}
@@ -189,21 +225,22 @@ public class MainController : MonoBehaviour {
 //				print ("is playing: " + isPlaying);
 				if (!isPlaying) {
 					// take picture with gopro
-					ProcessStartInfo processInfo = new ProcessStartInfo ("sh", System.IO.Path.Combine(Application.streamingAssetsPath, "run.sh"))
-					{
-						CreateNoWindow = true,
-						WindowStyle = ProcessWindowStyle.Hidden,
-						UseShellExecute = false,
-						RedirectStandardOutput = true
-					};
 					if (takePicture) {
-						Process process = Process.Start (processInfo);
+//						Process process = Process.Start (processInfo);
 					}
 					UnityEngine.Debug.Log ("retorno de la toma de foto");
 
 					// do not allow collision between hands and items anymore
 					Physics2D.IgnoreLayerCollision(playerLayer, itemsLayer);
-					playAgainBtn.SetActive(true);
+//					playAgainBtn.SetActive(true);
+					if (won) {
+						winMessage.SetActive(true);
+//						print ("gano");
+					} else {
+						loseMessage.SetActive(true);
+//						print ("perdio");
+					}
+					StartCoroutine(RestartGameCoroutine());
 				}
 			} else {
 				// user is not allowed to move items anymore but can still click on playAgainBtn
@@ -226,26 +263,48 @@ public class MainController : MonoBehaviour {
 		}
 	}
 
+	void LateUpdate()
+	{
+//		MarkHeartsForCheck();
+	}
+
 	void CountNrVisibleHearts()
 	{
 		for (int i = 0; i < nrHearts; i++) {
 			CircleCollider2D heartCollider = hearts [i].GetComponent<CircleCollider2D> ();
 			if (heartCollider) {
 				HeartController heartController = hearts [i].GetComponent<HeartController> (); 
-				if (!heartController.wasDiscovered && heartController.nrOverlayedItems == 0) {
+				if (!heartController.wasDiscovered && heartController.nrOverlayedItems == 0 || !heartController.wasDiscovered && heartController.shouldBeConsideredDiscovered) {
 					// heart is visible
 					nrVisibleHearts++;
 					heartCollider.isTrigger = false;
 					heartController.wasDiscovered = true;
 					hearts[i].GetComponent<Animator>().SetTrigger("wasDiscovered");
+					heartController.shouldBeConsideredDiscovered = false;
+					print ("se descubrio el corazon " + i);
 				}
 			}
+		}
+	}
+
+	void MarkHeartsForCheck()
+	{
+		for (int i = 0; i < nrHearts; i++) {
+			HeartController heartController = hearts [i].GetComponent<HeartController> (); 
+			heartController.shouldBeConsideredDiscovered = true;
 		}
 	}
 
 	public static void RestartGame()
 	{
 		// SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // in Unity > 5
-		Application.LoadLevel (Application.loadedLevel);
+//		Application.LoadLevel (Application.loadedLevel);
+//		Application.LoadLevel ("standby");
+	}
+
+	IEnumerator RestartGameCoroutine()
+	{
+		yield return new WaitForSeconds(5);
+		Application.LoadLevel ("standby");
 	}
 }
