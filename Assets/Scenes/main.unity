@@ -392,8 +392,8 @@ GameObject:
   - 4: {fileID: 222645372}
   - 58: {fileID: 222645371}
   - 50: {fileID: 222645370}
-  - 114: {fileID: 222645369}
   - 212: {fileID: 222645368}
+  - 114: {fileID: 222645369}
   m_Layer: 12
   m_Name: RightHand
   m_TagString: Player
@@ -447,11 +447,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 0
-  m_IsKinematic: 0
+  m_FixedAngle: 1
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
 --- !u!58 &222645371
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1370,7 +1370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1212539310
 Transform:
   m_ObjectHideFlags: 0
@@ -1445,8 +1445,8 @@ GameObject:
   - 4: {fileID: 1492173844}
   - 58: {fileID: 1492173848}
   - 50: {fileID: 1492173847}
-  - 114: {fileID: 1492173846}
   - 212: {fileID: 1492173845}
+  - 114: {fileID: 1492173846}
   m_Layer: 12
   m_Name: LeftHand
   m_TagString: Player
@@ -1512,11 +1512,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: .0500000007
   m_GravityScale: 0
-  m_FixedAngle: 0
-  m_IsKinematic: 0
+  m_FixedAngle: 1
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
 --- !u!58 &1492173848
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2166,7 +2166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819b9119a66ef24429e6f9b13099c03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingKinect: 0
+  usingKinect: 1
   takePicture: 0
   gameDuration: 20
   timeAlert: 15

@@ -43,7 +43,7 @@ Rigidbody2D:
   m_FixedAngle: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
 --- !u!58 &5893878
 CircleCollider2D:

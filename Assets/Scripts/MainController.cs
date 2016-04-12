@@ -235,10 +235,10 @@ public class MainController : MonoBehaviour {
 //					playAgainBtn.SetActive(true);
 					if (won) {
 						winMessage.SetActive(true);
-						print ("gano");
+//						print ("gano");
 					} else {
 						loseMessage.SetActive(true);
-						print ("perdio");
+//						print ("perdio");
 					}
 					StartCoroutine(RestartGameCoroutine());
 				}
